@@ -27,25 +27,24 @@ class GFG{
 //User function Template for Java
 
 class Solution{
-    
     static ArrayList<Integer> recamanSequence(int n){
-        ArrayList<Integer> res=new ArrayList<>();
-        HashSet<Integer> du=new HashSet<>();
-        if(n==0)
-        return res;
-        int start=0;
-        res.add(start);
-        du.add(start);
-        for(int i=2;i<=n;i++)
+        ArrayList<Integer> array=new ArrayList<>();
+        HashSet<Integer> map=new HashSet<>();
+        array.add(0);
+        map.add(0);
+        int ind=1;
+        while(ind<=n)
         {
-            int r=start-i+1;
-            if(r>0 && !du.contains(r))
-            start=r;
-            else
-            start=start+i-1;
-            res.add(start);
-            du.add(start);
+            int res=array.get(ind-1)-(ind);
+            if(res>0 && !map.contains(res))
+            array.add(res);
+            else{
+                res=array.get(ind-1)+(ind);
+            array.add(res);
+            }
+            ind++;
+            map.add(res);
         }
-        return res;
+        return array;
     }
 }
