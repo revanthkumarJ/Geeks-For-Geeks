@@ -32,8 +32,8 @@ class GfG{
             int n = sc.nextInt();
             int val = sc.nextInt();
             
-            Node first = new Node(val);
-            Node tail = first;
+            Node num1 = new Node(val);
+            Node tail = num1;
             for(int i=0; i<n-1; i++)
             {
                 val = sc.nextInt();
@@ -44,8 +44,8 @@ class GfG{
             int m = sc.nextInt();
             val = sc.nextInt();
             
-            Node second = new Node(val);
-            tail = second;
+            Node num2 = new Node(val);
+            tail = num2;
             for(int i=0; i<m-1; i++)
             {
                 val = sc.nextInt();
@@ -54,13 +54,15 @@ class GfG{
             }
             
             Solution g = new Solution();
-            Node res = g.addTwoLists(first, second);
+            Node res = g.addTwoLists(num1, num2);
             printList(res);
         }
     }
 }
 
 // } Driver Code Ends
+
+
 
 
 /* node for linked list
@@ -139,6 +141,11 @@ class Solution{
             n.next=null;
         }
         
-        return reverse(head);
+        head=reverse(head);
+        while(head.data==0 && head.next!=null)
+        {
+            head=head.next;
+        }
+        return head;
     }
 }
