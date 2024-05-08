@@ -1,139 +1,177 @@
 //{ Driver Code Starts
-//Initial Template for Java
-
-
-//Contributed by Sudarshan Sharma
-import java.util.LinkedList; 
-import java.util.Queue; 
 import java.io.*;
 import java.util.*;
 
+
 class Node
 {
-    int data; //data of the node
-    int hd; //horizontal distance of the node
-    Node left, right; //left and right references
- 
-    // Constructor of tree node
-    public Node(int key)
-    {
-        data = key;
-        hd = Integer.MAX_VALUE;
-        left = right = null;
-    }
-}
+    int data;
+    Node left;
+    Node right;
 
-class GfG {
-    
-    static Node buildTree(String str){
-        
-        if(str.length()==0 || str.charAt(0)=='N'){
+    Node(int data)
+    {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+
+    public static Node buildTree(String str)
+    {
+        // Corner Case
+        if(str.length()==0 || str.charAt(0)=='N')
             return null;
-        }
-        
+
+        // Creating array of Strings from input
+        // String after spliting by space
         String ip[] = str.split(" ");
+
         // Create the root of the tree
         Node root = new Node(Integer.parseInt(ip[0]));
+
         // Push the root to the queue
-        
-        Queue<Node> queue = new LinkedList<>(); 
-        
+        Queue<Node> queue = new LinkedList<>();
         queue.add(root);
+
         // Starting from the second element
-        
         int i = 1;
-        while(queue.size()>0 && i < ip.length) {
-            
+        while(queue.size()>0 && i < ip.length)
+        {
+
             // Get and remove the front of the queue
             Node currNode = queue.peek();
             queue.remove();
-                
+
             // Get the current node's value from the string
             String currVal = ip[i];
-                
+
             // If the left child is not null
-            if(!currVal.equals("N")) {
-                    
+            if(!currVal.equals("N"))
+            {
+
                 // Create the left child for the current node
                 currNode.left = new Node(Integer.parseInt(currVal));
                 // Push it to the queue
                 queue.add(currNode.left);
             }
-                
+
             // For the right child
             i++;
             if(i >= ip.length)
                 break;
-                
+
             currVal = ip[i];
-                
+
             // If the right child is not null
-            if(!currVal.equals("N")) {
-                    
+            if(!currVal.equals("N"))
+            {
+
                 // Create the right child for the current node
                 currNode.right = new Node(Integer.parseInt(currVal));
-                    
+
                 // Push it to the queue
                 queue.add(currNode.right);
             }
             i++;
         }
-        
+
         return root;
     }
-    static void printInorder(Node root)
+
+    public static Node inputTree(BufferedReader br) throws IOException
     {
-        if(root == null)
-            return;
-            
-        printInorder(root.left);
-        System.out.print(root.data+" ");
-        
-        printInorder(root.right);
+        return buildTree(br.readLine().trim());
     }
-    
-	public static void main (String[] args) throws IOException{
-	        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	        
-	        int t=Integer.parseInt(br.readLine());
-    
-	        while(t-- > 0){
-	            String s = br.readLine();
-    	    	Node root = buildTree(s);
-    	        Tree g = new Tree();
-			    ArrayList<ArrayList<Integer>> paths = g.Paths(root);
-			    for(int i = 0;i<paths.size();i++){
-			        ArrayList<Integer> temp = paths.get(i);
-			        for(int j = 0;j<temp.size();j++){
-			            System.out.print(temp.get(j)+ " ");
-			        }
-			        System.out.print("#");
-			    }
-            System.out.println();
-	        }
-	}
+
+    public static void inorder(Node root)
+    {
+        if (root == null)
+           return;
+        inorder(root.left);
+        System.out.print(root.data + " ");
+        inorder(root.right);
+    }
 }
 
+
+class IntMatrix
+{
+    public static int[][] input(BufferedReader br, int n, int m) throws IOException
+    {
+        int[][] mat = new int[n][];
+
+        for(int i = 0; i < n; i++)
+        {
+            String[] s = br.readLine().trim().split(" ");
+            mat[i] = new int[s.length];
+            for(int j = 0; j < s.length; j++)
+                mat[i][j] = Integer.parseInt(s[j]);
+        }
+
+        return mat;
+    }
+
+    public static void print(int[][] m)
+    {
+        for(var a : m)
+        {
+            for(int e : a)
+                System.out.print(e + " ");
+            System.out.println();
+        }
+    }
+
+    public static void print(ArrayList<ArrayList<Integer>> m)
+    {
+        for(var a : m)
+        {
+            for(int e : a)
+                System.out.print(e + " ");
+            System.out.println();
+        }
+    }
+}
+
+class GFG {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t;
+        t = Integer.parseInt(br.readLine());
+        while(t-- > 0){
+            
+            Node root = Node.inputTree(br);
+            
+            Solution obj = new Solution();
+            ArrayList<ArrayList<Integer>> res = obj.Paths(root);
+            
+            IntMatrix.print(res);
+            
+        }
+    }
+}
 
 // } Driver Code Ends
 
 
-//User function Template for Java
-
-
 /*
 
-class Node{
+Definition for Binary Tree Node
+class Node
+{
     int data;
-    Node left,right;
-    Node(int d){
-        data=d;
-        left=right=null;
+    Node left;
+    Node right;
+
+    Node(int data)
+    {
+        this.data = data;
+        left = null;
+        right = null;
     }
 }
-
 */
-class Tree{
+
+class Solution {
     ArrayList<ArrayList<Integer>> array;
     public void add(Node root,ArrayList<Integer> a)
     {
@@ -163,5 +201,5 @@ class Tree{
         
         
     }
-    
 }
+        
